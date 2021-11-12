@@ -76,7 +76,7 @@ const Head = () => {
                       />
                     </span>
                   ))}
-                  <Link to="cart">
+                  <Link to="/cart">
                     <Button style={{ width: "95%", margin: "0 10px" }}>
                       Go To Cart
                     </Button>
