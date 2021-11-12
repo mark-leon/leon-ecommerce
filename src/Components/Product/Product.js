@@ -2,18 +2,28 @@ import React from 'react'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import CompareIcon from '@material-ui/icons/Compare';
-const Product = (props) => {
+import { CartState } from '../../Context/Context';
+
+
+const Product = ({prod}) => {
+    const {
+      state:{cart},
+      dispatch,
+    } = CartState()
     return (
-        <div className="product category__products">
+          <div className="product category__products">
                 <div className="product__header">
-                  <img src={props.src} alt="product"/>
+                  <img src={prod.image} alt="product"/>
                 </div>
                 <div className="product__footer">
-                  <h3>{props.text}</h3>
+                  <h3>{prod.text}</h3>
                   <div className="product__price">
-                    <h4>{props.price}</h4>
+                    <h4>{prod.price}</h4>
                   </div>
-                  <a href="#"><button type="submit" className="product__btn">Add To Cart</button></a>
+                  {cart.some((p) => p.id === prod.id)? (
+                   <button type="submit" className="product__btn" onClick ={()=> dispatch({type:"REMOVE_FROM_CART",payload: prod})}>Remove from Cart</button>)
+                  :(
+                  <button type="submit" className="product__btn" onClick= {()=>dispatch({type:"ADD_TO_CART",payload:prod})}>Add To Cart</button>)}
                 </div>
               <ul>
                   <li>
